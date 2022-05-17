@@ -1,0 +1,20 @@
+body{
+    background-color: blue;
+    color: whitesmoke;
+}
+
+form{
+    margin-top: 12vh;
+}
+
+input{
+    margin: 12px 0;
+}
+
+input[type='submit']{
+
+    background-color: green;
+    margin-top: 7vh;
+
+
+}
