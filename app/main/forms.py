@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
-from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
+from wtforms import StringField, PasswordField, SubmitField, BooleanField,TextAreaField
+from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError, InputRequired
 from app.models import Post
 
 class PostForm(FlaskForm):
@@ -23,3 +23,9 @@ class PostForm(FlaskForm):
         post = Post.query.filter_by(post=post.data).first()
         if post:
             raise ValidationError('Post already exists. Please choose a different post.')
+
+
+class CommentForm(FlaskForm):
+    title = StringField('Comment title')
+    comment = TextAreaField('Blog comment')
+    submit = SubmitField('Submit')

@@ -9,10 +9,10 @@ from ..models import User
 class RegistrationForm(FlaskForm):
 
     email = EmailField('Enter your email', validators=[DataRequired()])
-    username = StringField('Enter a Username', validators=[DataRequired(), Length(min=3, max=20, message='Username must be between 3 to 20 characters' )])
+    username = StringField('Enter  Username', validators=[DataRequired(), Length(min=3, max=20, message='Username must be between 3 to 20 characters' )])
     password = PasswordField('Enter Password', validators=[DataRequired()])
     confirm_password = PasswordField('Confirm Password', validators=[DataRequired(), EqualTo('password', message='Passwords do not match!')])
-    submit = SubmitField('Create account')
+    submit = SubmitField('Register account')
 
     def validate_email(self, data_field):
         if User.query.filter_by(email = data_field.data).first():

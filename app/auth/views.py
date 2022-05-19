@@ -11,7 +11,7 @@ def register():
      
     registration_form = RegistrationForm()
 
-    title = 'Sign Up'
+    title = 'App Sign Up'
 
     if registration_form.validate_on_submit():
 
@@ -28,7 +28,7 @@ def login():
 
     login_form = LoginForm()
 
-    title = 'Login'
+    title = 'Post Login'
 
     if login_form.validate_on_submit():
 
@@ -36,7 +36,7 @@ def login():
 
         if user is not None and user.verify_password(login_form.password.data):
             login_user(user, login_form.remember.data)
-            return redirect(request.args.get('next') or url_for('main.home'))
+            return redirect(request.args.get('next') or url_for('main.index'))
 
         flash('invalid Username or Password')
 

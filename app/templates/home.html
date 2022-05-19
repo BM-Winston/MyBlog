@@ -1,21 +1,47 @@
-{% extends 'base.html' %}
-
-
-
+{% extends "base.html" %}
 
 {% block content %}
-{% for post in posts %}
 
-<div class="container">
-    <div class="row">
-        <div class="col-md-12">
-            <h1>Home</h1>
-            <h2>{{ post.title }}</h2>
-            <p>{{ post.body }}</p>
-        </div>
+<h1 style="color: white;">MyBlog</h1>
+<h2 style="color:white">A place where you can create and view great blogs.</h2>
+
+<div class="card" style="width: 18rem;">
+    
+    <div class="card-body">
+        <h5 style="color:white" ="card-title">Top Blogs</h5>
+        <p style="color: white;" class="card-text">Investments in nature conservation have long been neglected, and as a result, nature across Europe is now in a terrible
+        state. Biodiversity conservation projects can address this by providing cost-effective ways to restore nature and
+        sustainably manage ecosystems; tackle climate change; and deliver environmental, social and economic benefits at the
+        same time.</p>
+        <a href="#" class="btn btn-primary">Comment</a>
+    </div>
+</div>
+
+<a style="font-size: 6vh;" href="{{url_for('main.post')}}">Create Post Here</a>
+<div class="container-fluid">
+    <div class="container">
+       
+
+            <div class="row">
+                {% for post in posts %}
+                <div class="col-sm-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <p class="card-text">{{post.post}}</p>
+                            <a href="#" class="btn btn-primary">{{post.title}}</a>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        
+    </div>
     </div>
 
-    {% endfor %}
+
+
+
+
 
 
 

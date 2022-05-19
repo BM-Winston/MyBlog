@@ -1,9 +1,14 @@
 from email.policy import default
-from . import db
+from app import db,login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
-from . import login_manager
 from flask_login import UserMixin
 from datetime import datetime
+from flask_sqlalchemy import SQLAlchemy
+
+
+
+
+db=SQLAlchemy()
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -68,4 +73,24 @@ class Post(db.Model):
 
     def __repr__(self):
         return f'{self.id}'
+
+
+class Comment(db.Model):
+
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key=True)
+    pitch_id = db.Column(db.Integer,db.ForeignKey('posts.id'))
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    comment = db.Column(db.String(255))
+
+
+    def save_comment(self,comment):
+        db.session.add(comment)
+        db.session.commit()
+
+    @classmethod
+    def get_comments(cls, pitch_id):
+        comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+        return comments
 
