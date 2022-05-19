@@ -1,4 +1,3 @@
-from email.policy import default
 from app import db,login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
@@ -80,17 +79,20 @@ class Comment(db.Model):
     __tablename__ = 'comments'
 
     id = db.Column(db.Integer,primary_key=True)
-    pitch_id = db.Column(db.Integer,db.ForeignKey('posts.id'))
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-    comment = db.Column(db.String(255))
+    post_id = db.Column(db.Integer,db.ForeignKey('posts.id'),nullable=False)
+    user_id = db.Column(db.Integer,db.ForeignKey('users.id'),nullable=False)
+    comment = db.Column(db.Text(),nullable=False)
 
 
-    def save_comment(self,comment):
-        db.session.add(comment)
+    def save_comment(self):
+        db.session.add(self)
         db.session.commit()
 
     @classmethod
-    def get_comments(cls, pitch_id):
-        comments = Comment.query.filter_by(pitch_id=pitch_id).all()
+    def get_comments(cls, post_id):
+        comments = Comment.query.filter_by(post_id=post_id).all()
         return comments
+
+    def __repr__(self):
+        return f'comment:{self.comment}'
 
